@@ -1,0 +1,14 @@
+{
+    "category": "General",
+    "changelog": "Initial release.",
+    "description": "Adds a clickable Sonarr/Radarr link to the detail page of every movie and TV show (and episode/season, which link to the whole series).",
+    "guid": "988b9d9d-480a-475f-bab9-4ffb26287c67",
+    "name": "Arr Links",
+    "overview": "Open a movie in Radarr or a series in Sonarr straight from Jellyfin.",
+    "owner": "rbaguet",
+    "targetAbi": "10.11.0.0",
+    "framework": "net9.0",
+    "version": "1.0.0.0",
+    "status": "Active",
+    "autoUpdate": false
+}

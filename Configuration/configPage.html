@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Arr Links</title>
+</head>
+<body>
+<div id="ArrConfigPage" data-role="page" class="page type-interior pluginConfigurationPage">
+    <div data-role="content">
+        <div class="content-primary">
+            <form id="ArrConfigForm">
+                <div class="sectionTitleContainer flex align-items-center">
+                    <h2 class="sectionTitle">Sonarr (TV shows)</h2>
+                </div>
+                <div class="inputContainer">
+                    <label class="inputLabel inputLabelUnfocused" for="SonarrUrl">Sonarr URL</label>
+                    <input id="SonarrUrl" name="SonarrUrl" type="url" is="emby-input" placeholder="https://sonarr.example.com" />
+                    <div class="fieldDescription">Base URL as your browser reaches it (use the external/reverse-proxy URL).</div>
+                </div>
+                <div class="inputContainer">
+                    <label class="inputLabel inputLabelUnfocused" for="SonarrApiKey">Sonarr API key</label>
+                    <input id="SonarrApiKey" name="SonarrApiKey" type="text" is="emby-input" autocomplete="off" />
+                    <div class="fieldDescription">Required. Sonarr &rarr; Settings &rarr; General &rarr; API Key.</div>
+                </div>
+
+                <br />
+                <div class="sectionTitleContainer flex align-items-center">
+                    <h2 class="sectionTitle">Radarr (movies)</h2>
+                </div>
+                <div class="inputContainer">
+                    <label class="inputLabel inputLabelUnfocused" for="RadarrUrl">Radarr URL</label>
+                    <input id="RadarrUrl" name="RadarrUrl" type="url" is="emby-input" placeholder="https://radarr.example.com" />
+                </div>
+
+                <br />
+                <button is="emby-button" type="submit" class="raised button-submit block emby-button">
+                    <span>Save</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        (function () {
+            var pluginId = '988b9d9d-480a-475f-bab9-4ffb26287c67';
+            var fields = ['SonarrUrl', 'SonarrApiKey', 'RadarrUrl'];
+            var page = document.querySelector('#ArrConfigPage');
+
+            page.addEventListener('viewshow', function () {
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(pluginId).then(function (config) {
+                    fields.forEach(function (f) {
+                        page.querySelector('#' + f).value = config[f] || '';
+                    });
+                    Dashboard.hideLoadingMsg();
+                });
+            });
+
+            page.querySelector('#ArrConfigForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+                Dashboard.showLoadingMsg();
+                ApiClient.getPluginConfiguration(pluginId).then(function (config) {
+                    fields.forEach(function (f) {
+                        config[f] = page.querySelector('#' + f).value;
+                    });
+                    ApiClient.updatePluginConfiguration(pluginId, config).then(function (result) {
+                        Dashboard.processPluginConfigurationUpdateResult(result);
+                    });
+                });
+                return false;
+            });
+        })();
+    </script>
+</div>
+</body>
+</html>

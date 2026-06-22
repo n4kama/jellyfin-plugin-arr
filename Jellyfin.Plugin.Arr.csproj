@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Jellyfin.Plugin.Arr</RootNamespace>
+    <AssemblyName>Jellyfin.Plugin.Arr</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Jellyfin.Controller" Version="10.11.11" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration/configPage.html">
+      <LogicalName>Jellyfin.Plugin.Arr.Configuration.configPage.html</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web/inject.js">
+      <LogicalName>Jellyfin.Plugin.Arr.Web.inject.js</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <!-- ponytail: test file ships next to the code it checks; keep it out of the build. -->
+  <ItemGroup>
+    <None Remove="Web/inject.test.js" />
+  </ItemGroup>
+
+</Project>
