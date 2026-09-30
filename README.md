@@ -8,6 +8,7 @@ native (like Jellyseerr/Overseerr).
 - **Series / Seasons / Episodes** → open the **whole series** in **Sonarr**
   (resolved from the TVDb id via Sonarr's API, so an episode page still lands on the
   series).
+- **Movies** also get a **Letterboxd** link (via `letterboxd.com/tmdb/{id}/`, no config).
 
 ## How it works (the short version)
 
@@ -20,7 +21,7 @@ plugin:
 2. That script adds the link, pointing at a plugin endpoint `Arr/Resolve/{itemId}`.
 3. The endpoint looks the item up, maps it to Sonarr/Radarr, and `302`-redirects.
    Sonarr's API key stays server-side; the link carries your Jellyfin token as
-   `?api_key=` with `rel="noopener noreferrer"` so it isn't leaked onward.
+   `?ApiKey=` with `rel="noopener noreferrer"` so it isn't leaked onward.
 
 ## Build
 
